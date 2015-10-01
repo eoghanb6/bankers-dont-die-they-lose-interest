@@ -33,4 +33,19 @@ public class Account {
         //<account number> (<account type>) - <first name> <last name> - £<balance>
         return this.accountNumber + " (" + this.accountType + ") - " + this.firstName + " " + this.lastName + " - £" + this.Savings;
     }
+    public String getSavings(){
+        return "Balance: \t£" + this.Savings;
+    }
+    public String deposit(int x) throws Exception{
+        this.Savings += x;
+        return getSavings();
+    }
+    public String withdraw(int x) throws Exception{
+        if(this.Savings < x){throw new Exception();}
+        else {this.Savings -= x;
+        return getSavings();}
+    }
+    public int getaccountnumber(){
+        return this.accountNumber;
+    }
 }
