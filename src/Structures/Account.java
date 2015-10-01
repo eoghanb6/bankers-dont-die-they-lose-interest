@@ -1,6 +1,6 @@
 package Structures;
 
-public abstract class Account {
+public class Account {
     private String firstName;
     private String lastName;
     private AccountType accountType;
