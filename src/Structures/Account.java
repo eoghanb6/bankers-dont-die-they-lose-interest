@@ -1,20 +1,22 @@
 package Structures;
 
 public class Account {
+    private int accountNumber;
     private String firstName;
     private String lastName;
     private AccountType accountType;
-    private double Savings =0;
+    private double Savings = 0;
     private int overdraft;
 
-    public Account(String firstName, String lastName, AccountType accountType){
+    public Account(int accountNumber, String firstName, String lastName, AccountType accountType){
+        this.accountNumber = accountNumber;
         this.firstName = firstName;
         this.lastName = lastName;
         this.accountType = accountType;
         getOverdraft();
     }
-    public Account(String firstName, String lastName, AccountType accountType, int initialSavings){
-        this(firstName, lastName, accountType);
+    public Account(int accountNumber, String firstName, String lastName, AccountType accountType, double initialSavings){
+        this(accountNumber, firstName, lastName, accountType);
         this.Savings = initialSavings;
     }
     private void getOverdraft(){
@@ -28,6 +30,7 @@ public class Account {
         }
     }
     public String getAccountInfo(){
-        return "First name:\t\t" + this.firstName + "\nLast name:\t\t" + this.lastName + "\nAccount Type:\t" + this.accountType + "\nSavings:\t\t" + this.Savings + "\nOverdraft:\t\t" + this.overdraft;
+        //<account number> (<account type>) - <first name> <last name> - £<balance>
+        return this.accountNumber + " (" + this.accountType + ") - " + this.firstName + " " + this.lastName + " - £" + this.Savings;
     }
 }
