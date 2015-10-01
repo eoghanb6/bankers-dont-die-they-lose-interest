@@ -12,7 +12,7 @@ public class Main {
     public static void menuChoice(){
         Scanner myScanner = new Scanner(System.in);
 
-        System.out.println("Press 1 to create account, press 2 to list accounts, press 3 to exit");
+        System.out.println("Press 1 to create account, press 2 to list accounts, press 3 to sign in, press 4 to exit");
         int menuChoice1 = 0;
         try{
         menuChoice1 = myScanner.nextInt(); }
@@ -28,8 +28,10 @@ public class Main {
             case 2:
                 listAccounts();
                 break;
-
             case 3:
+                System.out.println("Please enter account number");
+                 accountsearch();
+            case 4:
                 System.out.println("Bye");
                 System.exit(2);
                 break;
@@ -113,6 +115,24 @@ public class Main {
         System.out.println("Press any key to go back to the menu");
         String pass = myScanner.nextLine();
         menuChoice();
+    }
+
+    public static void accountsearch(){
+        Scanner myScanner = new Scanner(System.in);
+       System.out.println("Please enter your account number");
+        int inputAccount = myScanner.nextInt();
+        for(Account account: accountList) {
+
+            if (inputAccount == account.getaccountnumber())  {
+
+                System.out.println("Account number: " + inputAccount + ". Press 1 to withdraw cash, press 2 to deposit cash");
+
+            }
+        }
+
+
+
+
     }
 }
 
