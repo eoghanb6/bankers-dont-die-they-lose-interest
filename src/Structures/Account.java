@@ -36,11 +36,11 @@ public class Account {
     public String getSavings(){
         return "Balance: \t£" + this.Savings;
     }
-    public String deposit(int x) throws Exception{
+    public String deposit(double x) throws Exception{
         this.Savings += x;
         return getSavings();
     }
-    public String withdraw(int x) throws Exception{
+    public String withdraw(double x) throws Exception{
         if(this.Savings < x){throw new Exception();}
         else {this.Savings -= x;
         return getSavings();}
@@ -49,3 +49,5 @@ public class Account {
         return this.accountNumber;
     }
 }
+
+

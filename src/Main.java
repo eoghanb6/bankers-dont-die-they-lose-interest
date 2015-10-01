@@ -29,8 +29,8 @@ public class Main {
                 listAccounts();
                 break;
             case 3:
-                System.out.println("Please enter account number");
-                 accountsearch();
+                accountsearch();
+                break;
             case 4:
                 System.out.println("Bye");
                 System.exit(2);
@@ -54,6 +54,7 @@ public class Main {
         accountType = makeAccountType();
         double savings = addSavings();
         accountList.add( new Account((accountList.size()+1) ,firstName, lastName, accountType, savings));
+        System.out.println(accountList.get(accountList.size()-1).getAccountInfo());
         menuChoice();
     }
     public static AccountType makeAccountType(){
@@ -125,16 +126,59 @@ public class Main {
 
             if (inputAccount == account.getaccountnumber())  {
 
-                System.out.println("Account number: " + inputAccount + ". Press 1 to withdraw cash, press 2 to deposit cash");
-
+               choose(inputAccount, account);
             }
         }
+ }
+
+    public static void choose(int inputAccount, Account account){
+
+        System.out.println("Account number: " + inputAccount + ". Press 1 to withdraw cash, press 2 to deposit cash");
+        Scanner myScanner = new Scanner(System.in);
+        int pass=  myScanner.nextInt();
+        if (pass == 1)  {
+            withdrawMethod(account);
+        }
+        else if(pass == 2) {
+            depositmethod(account);
+        }
+        else{choose(inputAccount, account );}
+    }
+
+    public static void withdrawMethod(Account account){
+        Scanner myScanner = new Scanner(System.in);
+        System.out.println("how much would you like to withdraw?");
+        double amount=  myScanner.nextInt();
+        try {
+            System.out.println(account.withdraw(amount));
+        } catch (Exception e) {
+            withdrawMethod(account);
+        }
+        System.out.println("Press any key to return to the menu");
+        String pass = myScanner.nextLine();
+        menuChoice();
+
+    }
+    public static void depositmethod(Account account) {
+        Scanner myScanner = new Scanner(System.in);
+        System.out.println("how much would you like to deposit?");
+        double amount=  myScanner.nextInt();
+        try {
+            System.out.println(account.deposit(amount));
+        } catch (Exception e) {
+            depositmethod(account);
+    }
+        System.out.println("Press any key to return to the menu");
+        String pass = myScanner.nextLine();
+        menuChoice();
+
 
 
 
 
     }
 }
+
 
 
 
