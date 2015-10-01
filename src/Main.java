@@ -1,15 +1,18 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 import Structures.*;
 public class Main {
 
+    public static ArrayList<Account> accountList = new ArrayList<Account>();
 
     public static void main(String[] args) {
+        System.out.println("Welcome to Bank");
         menuChoice();
     }
     public static void menuChoice(){
         Scanner myScanner = new Scanner(System.in);
-        System.out.println("Welcome to Bank");
-        System.out.println("Press 1 to create account, press 2 to exit");
+
+        System.out.println("Press 1 to create account, press 2 to list accounts, press 3 to exit");
         int menuChoice1 = 0;
         try{
         menuChoice1 = myScanner.nextInt(); }
@@ -22,11 +25,15 @@ public class Main {
             case 1:
                 createAccount();
                 break;
-
             case 2:
+                listAccounts();
+                break;
+
+            case 3:
                 System.out.println("Bye");
                 System.exit(2);
                 break;
+
 
             default:
                 System.out.println("Please enter a suitable value");
@@ -43,17 +50,9 @@ public class Main {
         String lastName = myScanner.nextLine();
         AccountType accountType;
         accountType = makeAccountType();
-        int savings = addSavings();
-        if(savings == 0 ){
-          Account account = new Account(firstName, lastName, accountType);
-          System.out.println(account.getAccountInfo());
-        }
-        else{
-            Account account = new Account(firstName, lastName, accountType, savings);
-            System.out.println(account.getAccountInfo());
-        }
-
-
+        double savings = addSavings();
+        accountList.add( new Account((accountList.size()+1) ,firstName, lastName, accountType, savings));
+        menuChoice();
     }
     public static AccountType makeAccountType(){
         Scanner myScanner = new Scanner(System.in);
@@ -84,13 +83,13 @@ public class Main {
 
         return accountType;
     }
-    public static int addSavings(){
+    public static double addSavings(){
         Scanner myScanner = new Scanner(System.in);
         System.out.println("Add initial savings or press enter for no savings");
         String input = myScanner.nextLine();
-        int savings = 0;
+        double savings = 0;
         try{
-            savings = Integer.parseInt(input);
+            savings = Double.parseDouble(input);
         }
         catch(Exception e){
             if (input.equals("")){return 0;}
@@ -105,6 +104,15 @@ public class Main {
         return savings;}
 
 
+    }
+    public static void listAccounts(){
+        for(Account account: accountList){
+            System.out.println(account.getAccountInfo());
+        }
+        Scanner myScanner = new Scanner(System.in);
+        System.out.println("Press any key to go back to the menu");
+        String pass = myScanner.nextLine();
+        menuChoice();
     }
 }
 
