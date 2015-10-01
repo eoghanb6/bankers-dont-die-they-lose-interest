@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 import Structures.*;
+
+
 public class Main {
 
     public static ArrayList<Account> accountList = new ArrayList<Account>();
@@ -54,7 +56,7 @@ public class Main {
         accountType = makeAccountType();
         double savings = addSavings();
         accountList.add( new Account((accountList.size()+1) ,firstName, lastName, accountType, savings));
-        System.out.println(accountList.get(accountList.size()-1).getAccountInfo());
+        System.out.println(accountList.get(accountList.size() - 1).getAccountInfo());
         menuChoice();
     }
     public static AccountType makeAccountType(){
@@ -105,8 +107,6 @@ public class Main {
             addSavings(); return 0;}
         else{
         return savings;}
-
-
     }
     public static void listAccounts(){
         for(Account account: accountList){
@@ -117,7 +117,6 @@ public class Main {
         String pass = myScanner.nextLine();
         menuChoice();
     }
-
     public static void accountsearch(){
         Scanner myScanner = new Scanner(System.in);
        System.out.println("Please enter your account number");
@@ -129,13 +128,18 @@ public class Main {
                choose(inputAccount, account);
             }
         }
+        System.out.print("Not a valid account number");
+        menuChoice();
  }
-
     public static void choose(int inputAccount, Account account){
 
         System.out.println("Account number: " + inputAccount + ". Press 1 to withdraw cash, press 2 to deposit cash");
         Scanner myScanner = new Scanner(System.in);
-        int pass=  myScanner.nextInt();
+        int pass = 0;
+        try{pass=  myScanner.nextInt();}
+        catch(Exception e){
+            System.out.println("Please enter a number");
+            choose(inputAccount, account);}
         if (pass == 1)  {
             withdrawMethod(account);
         }
@@ -144,14 +148,17 @@ public class Main {
         }
         else{choose(inputAccount, account );}
     }
-
     public static void withdrawMethod(Account account){
         Scanner myScanner = new Scanner(System.in);
         System.out.println("how much would you like to withdraw?");
-        double amount=  myScanner.nextInt();
+        double amount = 0;
+        try{amount =  myScanner.nextDouble();}
+        catch(Exception e){System.out.println("Please enter a number");
+        withdrawMethod(account);}
         try {
             System.out.println(account.withdraw(amount));
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             withdrawMethod(account);
         }
         System.out.println("Press any key to return to the menu");
@@ -162,7 +169,10 @@ public class Main {
     public static void depositmethod(Account account) {
         Scanner myScanner = new Scanner(System.in);
         System.out.println("how much would you like to deposit?");
-        double amount=  myScanner.nextInt();
+        double amount = 0;
+        try{amount =  myScanner.nextDouble();}
+        catch(Exception e){System.out.println("Please enter a number");
+            depositmethod(account);}
         try {
             System.out.println(account.deposit(amount));
         } catch (Exception e) {
@@ -171,26 +181,8 @@ public class Main {
         System.out.println("Press any key to return to the menu");
         String pass = myScanner.nextLine();
         menuChoice();
-
-
-
-
-
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

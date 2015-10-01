@@ -41,9 +41,18 @@ public class Account {
         return getSavings();
     }
     public String withdraw(double x) throws Exception{
-        if(this.Savings < x){throw new Exception();}
-        else {this.Savings -= x;
-        return getSavings();}
+        double sum = this.Savings + this.overdraft;
+        if(x > 10000){throw new Exception("Max withdrawl £10,000");}
+        else{
+            if (this.accountType == AccountType.Saver && this.Savings < x){throw new Exception("Cannot withdraw £" + x + " , only £" + this.Savings + " available." );}
+            else if(this.Savings + this.overdraft <= x){throw new Exception("Cannot withdraw £" + x + " , only £" + sum + " available.");}
+            else {
+                if (this.accountType == AccountType.Saver){this.Savings -= x+1; return getSavings();}
+                else{
+                this.Savings -= x;
+            return getSavings();}
+            }
+        }
     }
     public int getaccountnumber(){
         return this.accountNumber;
