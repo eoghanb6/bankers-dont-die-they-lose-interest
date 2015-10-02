@@ -126,8 +126,7 @@ public class Main {
             System.out.println(account.getAccountInfo());
         }
         Scanner myScanner = new Scanner(System.in);
-        System.out.println("Press any key to go back to the menu");
-        String pass = myScanner.nextLine();
+
         menuChoice();
     }
     public static void accountsearch(){
