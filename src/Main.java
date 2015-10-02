@@ -9,21 +9,20 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("Welcome to Bank");
-        menuChoice();
+        while(true){
+        menuChoice();}
     }
     public static void menuChoice(){
         Scanner myScanner = new Scanner(System.in);
 
         System.out.println("Press 1 to create account, press 2 to list accounts, press 3 to sign in, press 4 to exit");
-        int menuChoice1 = 0;
+        int menuChoice = 0;
         try{
-        menuChoice1 = myScanner.nextInt(); }
+        menuChoice = myScanner.nextInt(); }
         catch (Exception Error){
             System.out.println("Please enter a suitable value");
-            menuChoice();
         }
-
-        switch (menuChoice1) {
+        switch (menuChoice) {
             case 1:
                 createAccount();
                 break;
@@ -37,14 +36,10 @@ public class Main {
                 System.out.println("Bye");
                 System.exit(2);
                 break;
-
-
             default:
                 System.out.println("Please enter a suitable value");
-                menuChoice();
                 break;
         }
-
     }
     public static void createAccount(){
         Scanner myScanner = new Scanner(System.in);
@@ -72,7 +67,6 @@ public class Main {
         }
         catch(Exception e){foo = false;}
         }
-        menuChoice();
     }
     public static AccountType makeAccountType(){
         Scanner myScanner = new Scanner(System.in);
@@ -128,87 +122,80 @@ public class Main {
         Scanner myScanner = new Scanner(System.in);
         System.out.println("Press any key to go back to the menu");
         String pass = myScanner.nextLine();
-        menuChoice();
     }
     public static void accountsearch(){
-        boolean f = true;
         Scanner myScanner = new Scanner(System.in);
         System.out.println("Please enter your account number");
-        int inputAccount = myScanner.nextInt();
+        int inputAccount = 0;
+        try{
+        inputAccount = myScanner.nextInt();}
+        catch(Exception e){System.out.print("Please enter a number. ");}
+        Boolean success = false;
         for(Account account: accountList) {
-
             if (inputAccount == account.getaccountnumber())  {
-               f = true;
-               boolean foo = false;
-               while(!foo){
-               foo = choose(foo, inputAccount, account);
-               }
-                break;
-
-            }
-            f = false;
-
+               while(!success){
+               try{ success = choose(success, inputAccount, account);}
+               catch(Exception e){System.out.println("Not a valid account number");
+                   accountsearch();}
+            }}
         }
-        if(f = false){System.out.println("Not a valid account number");}
-        accountsearch();
+        //{System.out.println("Not a valid account number");}
 
  }
-    public static Boolean choose(Boolean foo, int inputAccount, Account account){
+    public static Boolean choose(Boolean worked, int inputAccount, Account account) throws Exception{
 
         System.out.println("Account number: " + inputAccount + ". Press 1 to withdraw cash, press 2 to deposit cash");
         Scanner myScanner = new Scanner(System.in);
         int pass = 0;
-        Boolean s = false;
         try{pass=  myScanner.nextInt();}
         catch(Exception e){
             System.out.println("Please enter a number");
-            foo = false;}
+            }
+        Boolean success = false;
         if (pass == 1)  {
-            while(!s)  {
-            s = withdrawMethod(s, account);}
-            foo = true;
+           while(!success){
+           success = withdrawMethod(success, account);}
+           worked = true;
         }
-        else if(pass == 2) {
-            while(!s){
-            s = depositmethod(s, account);}
-            foo = true;
+        else if(pass == 2){
+           while(!success){
+           success = depositmethod(success, account);}
+           worked = true;}
+        return worked;
         }
-        else{foo = false;}
-        return foo;
-    }
-    public static Boolean withdrawMethod(Boolean s, Account account){
+
+
+    public static Boolean withdrawMethod(Boolean success, Account account){
         Scanner myScanner = new Scanner(System.in);
         System.out.println("how much would you like to withdraw?");
         double amount = 0;
         try{amount =  myScanner.nextDouble();
             try {
                 System.out.println(account.withdraw(amount));
-                s = true;
+                success = true;
             } catch (Exception e) {
                 System.out.println(e.getMessage());
-                s = false;
-            }}
+            }
+        }
         catch(Exception e){System.out.println("Please enter a number");
-        s = false;}
-
-        return s;
+        }
+        return success;
     }
-    public static Boolean depositmethod(Boolean s, Account account) {
+    public static Boolean depositmethod(Boolean success, Account account) {
         Scanner myScanner = new Scanner(System.in);
         System.out.println("how much would you like to deposit?");
         double amount = 0;
         try{amount =  myScanner.nextDouble();
             try {
                 System.out.println(account.deposit(amount));
-                s = true;
+                success = true;
             } catch (Exception e) {
                 System.out.println(e.getMessage());
-                s = false;
-            }}
+            }
+        }
         catch(Exception e){System.out.println("Please enter a number");
-            s = false;}
-
-        return s;
+        }
+        return success;
     }
 }
 

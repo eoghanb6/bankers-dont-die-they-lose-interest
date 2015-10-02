@@ -43,7 +43,7 @@ public abstract class Account {
             double sum = this.Savings + this.overdraft - this.getTransactionCharge();
             if(x > 10000){throw new Exception("Max withdrawl £10,000");}
             else{
-                if (this.Savings + this.overdraft < x + this.getTransactionCharge()){throw new Exception("Cannot withdraw £" + x + " , only £" + sum + " available as there is a £" + this.getTransactionCharge() +" transaction charge for Saver accounts. Balance: £" + this.Savings );}
+                if (this.Savings + this.overdraft < x + this.getTransactionCharge()){throw new Exception("Cannot withdraw £" + x + " , only £" + sum + " available as there is a £" + this.getTransactionCharge() +" transaction charge for "+ this.getAccountType() +" accounts. Balance: £" + this.Savings );}
                 else {
                     this.Savings -= (x + this.getTransactionCharge());
                 return getSavings();}
