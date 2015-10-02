@@ -44,8 +44,8 @@ public class Account {
         double sum = this.Savings + this.overdraft;
         if(x > 10000){throw new Exception("Max withdrawl £10,000");}
         else{
-            if (this.accountType == AccountType.Saver && this.Savings < x){throw new Exception("Cannot withdraw £" + x + " , only £" + this.Savings + " available." );}
-            else if(this.Savings + this.overdraft < x){throw new Exception("Cannot withdraw £" + x + " , only £" + sum + " available.");}
+            if (this.accountType == AccountType.Saver && this.Savings <= x){throw new Exception("Cannot withdraw £" + x + " , only £" + this.Savings + " available." );}
+            else if(this.Savings + this.overdraft < x){throw new Exception("Cannot withdraw £" + x + " , only £" + sum + " available. there is a £1 transaction charge for Saver accounts.");}
             else {
                 if (this.accountType == AccountType.Saver){this.Savings -= x+1; return getSavings();}
                 else{
