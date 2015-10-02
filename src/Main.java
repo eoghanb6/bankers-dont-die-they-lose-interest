@@ -55,7 +55,14 @@ public class Main {
         AccountType accountType;
         accountType = makeAccountType();
         double savings = addSavings();
-        accountList.add( new Account((accountList.size()+1) ,firstName, lastName, accountType, savings));
+        switch(accountType){
+            case Standard: accountList.add( new Standard((accountList.size()+1) ,firstName, lastName, savings));
+                break;
+            case Saver: accountList.add( new Saver((accountList.size()+1) ,firstName, lastName, savings));
+                break;
+            case Premium: accountList.add( new Premium((accountList.size()+1) ,firstName, lastName, savings));
+                break;
+        }
         System.out.println(accountList.get(accountList.size() - 1).getAccountInfo());
         menuChoice();
     }
