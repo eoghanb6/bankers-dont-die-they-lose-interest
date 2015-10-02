@@ -6,7 +6,7 @@ public class Account {
     private String lastName;
     private AccountType accountType;
     private double Savings = 0;
-    private int saverTransactionCharge = 1;
+    private int saverTransactionCharge = 0;
     private int overdraft;
 
     public Account(int accountNumber, String firstName, String lastName, AccountType accountType){
@@ -15,6 +15,7 @@ public class Account {
         this.lastName = lastName;
         this.accountType = accountType;
         getOverdraft();
+        setTransactionCharge();
     }
     public Account(int accountNumber, String firstName, String lastName, AccountType accountType, double initialSavings){
         this(accountNumber, firstName, lastName, accountType);
@@ -46,18 +47,25 @@ public class Account {
         double sub = this.Savings - this.saverTransactionCharge;
         if(x > 10000){throw new Exception("Max withdrawl £10,000");}
         else{
-            if (this.accountType == AccountType.Saver && this.Savings < x + this.saverTransactionCharge){throw new Exception("Cannot withdraw £" + x + " , only £" + sub + " available as there is a £" + this.saverTransactionCharge +" transaction charge for Saver accounts. Balance: £" + this.Savings );}
-            else if(this.Savings + this.overdraft < x){throw new Exception("Cannot withdraw £" + x + " , only £" + sum + " available.");}
+            if (this.Savings + this.overdraft < x + this.saverTransactionCharge){throw new Exception("Cannot withdraw £" + x + " , only £" + sub + " available as there is a £" + this.saverTransactionCharge +" transaction charge for Saver accounts. Balance: £" + this.Savings );}
             else {
-                if (this.accountType == AccountType.Saver){this.Savings -= x+this.saverTransactionCharge; return getSavings();}
-                else{
-                this.Savings -= x;
+                this.Savings -= (x + this.saverTransactionCharge);
             return getSavings();}
             }
-        }
-    }
+
+}
     public int getaccountnumber(){
         return this.accountNumber;
+    }
+
+    public void setTransactionCharge(){
+
+       switch (this.accountType) {
+            case Standard:
+            case Premium:  this.saverTransactionCharge = 0 ;
+                break;
+            case Saver: this.saverTransactionCharge = 1;
+        }
     }
 }
 
