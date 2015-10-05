@@ -28,7 +28,7 @@ public abstract class Account {
 
     public String deposit(double x) throws Exception{
         if(x < 0)
-            {throw new Exception("Enter Positive Number");}
+        {throw new Exception("Enter Positive Number");}
         else{
             this.Savings += x;
             return getSavings();}
@@ -36,28 +36,18 @@ public abstract class Account {
 
     public String withdraw(double x) throws Exception{
         if(x < 0)
-            {throw new Exception("Enter Positive Number");}
+        {throw new Exception("Enter Positive Number");}
         else{
             double sum = this.Savings + this.getOverdraft() - this.getTransactionCharge();
-                if(x > MaxWithdrawal){throw new Exception("Max withdrawl £" + MaxWithdrawal);}
-                else{
-                if (this.Savings + this.overdraft < x + this.getTransactionCharge()){throw new Exception("Cannot withdraw £" + x + " , only £" + sum + " available as there is a £" + this.getTransactionCharge() +" transaction charge for "+ this.getAccountType() +" accounts. Balance: £" + this.Savings );}
-                    else {
+            if(x > MaxWithdrawal){throw new Exception("Max withdrawl £" + MaxWithdrawal);}
+            else{
+                if (this.Savings + this.getOverdraft() < x + this.getTransactionCharge()){throw new Exception("Cannot withdraw £" + x + " , only £" + sum + " available as there is a £" + this.getTransactionCharge() +" transaction charge for Saver accounts. Balance: £" + this.Savings );}
+                else {
                     this.Savings -= (x + this.getTransactionCharge());
                     return getSavings();}
-                    }
             }
+        }
     }
-
-
-
-
-
-
-
-
-
-
 
     public int getaccountnumber(){
         return this.accountNumber;
@@ -67,5 +57,3 @@ public abstract class Account {
     public abstract AccountType getAccountType();
     public abstract double getOverdraft() ;
 }
-
-
