@@ -11,4 +11,10 @@ public class Premium extends Account{
     public AccountType getAccountType(){
         return AccountType.Premium;
     }
+
+    public double getOverdraft() {
+
+        return 3000;
+    }
+
 }
