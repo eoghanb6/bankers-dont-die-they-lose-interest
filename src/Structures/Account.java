@@ -15,6 +15,13 @@ public abstract class Account {
         this.Savings = initialSavings;
     }
 
+
+    public String getName() {
+
+        return this.firstName + " " + this.lastName;
+
+    }
+
     public String getAccountInfo(){
         //<account number> (<account type>) - <first name> <last name> - £<balance>
         return this.accountNumber + " (" + this.getAccountType() + ") - " + this.firstName + " " + this.lastName + " - £" + this.Savings;

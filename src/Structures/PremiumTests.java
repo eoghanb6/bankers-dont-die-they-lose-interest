@@ -1,4 +1,6 @@
 package Structures;
+import junit.framework.Assert;
+import org.junit.Rule;
 import org.junit.Test;
 import static org.junit.Assert.* ;
 
@@ -17,13 +19,42 @@ public class PremiumTests {
         assertEquals(0,a.getTransactionCharge(),0.01) ;
 
     }
+       @Test
+    public void checkNameisSpelledCorrectly(){
 
+        assertEquals("Eoghan Bradley", a.getName()) ;
+    }
+     @Test
+    public void checkAccountInfo(){
+         assertEquals("1 (Premium) - Eoghan Bradley - £1000.0", a.getAccountInfo()) ;
+
+     }
     @Test
     public void checkSavings(){
-        a.getSavings();
-        assertEquals("Balance: \t£" + 1000.0,a.getSavings());
-
+        assertEquals( "Balance: \t£" + 1000.0 ,a.getSavings());
     }
+
+    @Test
+    public void checkDeposit(){
+        try
+        {
+            assertEquals(990, a.deposit(-10));
+            fail();
+        }catch(Exception e)
+        {
+            final String expectedMessage = "Enter Positive Number";
+            assertEquals(expectedMessage, e.getMessage());
+        }
+    }
+
+
+
+
+
+
+
+
+
 
 }
 
