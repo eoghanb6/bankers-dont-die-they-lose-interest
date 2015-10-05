@@ -80,19 +80,20 @@ public class PremiumTests {
     public void allow£1lessforsaverwithdrawals(){
         double maxWithdrawal = 10000;
         String savings = a.getSavings();
+        double sum = a.getSavingsDouble() + a.getOverdraft() - a.getTransactionCharge() ;
+        double x = 5000;
         try
         {
-            assertEquals("Balance: \t£"+-1.0, a.withdraw(10001));
+            assertEquals(sum, a.withdraw(x));
             fail();
         } catch(Exception e )
         {
-            final String expectedMessage = "Max withdrawl £" + maxWithdrawal;
-            assertEquals(expectedMessage, e.getMessage()) ;
+            assertEquals("Cannot withdraw £5000.0 , only £4000.0 available as there is a £0.0 transaction charge for Saver accounts. Balance: £1000.0", e.getMessage()) ;
         }
     }
 
 
-    }
+}
 
 
 

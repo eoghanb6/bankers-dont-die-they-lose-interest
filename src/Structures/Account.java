@@ -14,6 +14,10 @@ public abstract class Account {
         getOverdraft();
         this.Savings = initialSavings;
     }
+    public double getSavingsDouble() {
+        return this.Savings;
+
+    }
 
 
     public String getName() {
