@@ -88,9 +88,10 @@ public class PremiumTests {
             fail();
         } catch(Exception e )
         {
-            assertEquals("Cannot withdraw £5000.0 , only £4000.0 available as there is a £0.0 transaction charge for Saver accounts. Balance: £1000.0", e.getMessage()) ;
+            assertEquals("Cannot withdraw £5000.0 , only £4000.0 available as there is a £0.0 transaction charge for Premium accounts. Balance: £1000.0", e.getMessage()) ;
         }
     }
+
 
 
 }
