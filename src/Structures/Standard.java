@@ -12,4 +12,9 @@ public class Standard extends Account{
     public AccountType getAccountType(){
         return AccountType.Standard;
     }
+    public double getOverdraft() {
+
+        return 500;
+    }
+
 }

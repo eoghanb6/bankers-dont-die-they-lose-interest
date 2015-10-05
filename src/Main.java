@@ -57,7 +57,7 @@ public class Main {
         accountType = makeAccountType();}
         double savings = 0;
         Boolean foo = false;
-        while(!foo) {
+        while(!foo) { // "I PITY THE FOO" - Mr T
         try{savings = addSavings();
             switch(accountType){
                 case Standard: accountList.add( new Standard((accountList.size()+1) ,firstName, lastName, savings));
@@ -148,9 +148,8 @@ public class Main {
             f = false;
 
         }
-        if(f = false){System.out.println("Not a valid account number");}
-        accountsearch();
-
+        if(f = false){System.out.println("Not a valid account number");
+        accountsearch();}
  }
     public static Boolean choose(Boolean foo, int inputAccount, Account account){
 
@@ -189,8 +188,9 @@ public class Main {
             }}
         catch(Exception e){System.out.println("Please enter a number");
         s = false;}
-
+        menuChoice();
         return s;
+
     }
     public static Boolean depositmethod(Boolean s, Account account) {
         Scanner myScanner = new Scanner(System.in);

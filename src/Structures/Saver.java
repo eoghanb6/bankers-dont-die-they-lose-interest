@@ -11,4 +11,9 @@ public class Saver extends Account {
     public AccountType getAccountType(){
         return AccountType.Saver;
     }
+    public double getOverdraft() {
+
+        return 0;
+    }
+
 }
