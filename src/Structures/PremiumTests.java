@@ -21,7 +21,7 @@ public class PremiumTests {
     @Test
     public void checkSavings(){
         a.getSavings();
-        assertEquals("Balance: £" + 1000,a.getSavings(),0.1);
+        assertEquals("Balance: \t£" + 1000.0,a.getSavings());
 
     }
 
