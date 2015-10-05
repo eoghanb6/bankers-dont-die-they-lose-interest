@@ -35,7 +35,7 @@ public class PremiumTests {
     }
 
     @Test
-    public void checkDeposit(){
+    public void checkDepositIsPositive(){
         try
         {
             assertEquals(990, a.deposit(-10));
@@ -47,16 +47,52 @@ public class PremiumTests {
         }
     }
 
+    @Test
+    public void checkwithdrawisPositive(){
+        try
+        {
+            assertEquals(1010, a.withdraw(-10));
+            fail();
+        } catch(Exception e )
+        {
+            final String expectedMessage = "Enter Positive Number";
+            assertEquals(expectedMessage, e.getMessage()) ;
+        }
 
 
+        }
+        @Test
+        public void WithdrawLessThanmax(){
+        double maxWithdrawal = 10000;
+            try
+            {
+                assertEquals("Balance: \t£"+-1.0, a.withdraw(10001));
+                fail();
+            } catch(Exception e )
+            {
+                final String expectedMessage = "Max withdrawl £" + maxWithdrawal;
+                assertEquals(expectedMessage, e.getMessage()) ;
+            }
 
 
+    }
+    @Test
+    public void allow£1lessforsaverwithdrawals(){
+        double maxWithdrawal = 10000;
+        String savings = a.getSavings();
+        try
+        {
+            assertEquals("Balance: \t£"+-1.0, a.withdraw(10001));
+            fail();
+        } catch(Exception e )
+        {
+            final String expectedMessage = "Max withdrawl £" + maxWithdrawal;
+            assertEquals(expectedMessage, e.getMessage()) ;
+        }
+    }
 
 
-
-
-
-}
+    }
 
 
 
