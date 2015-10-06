@@ -1,11 +1,20 @@
 package Structures;
 import junit.framework.Assert;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.internal.runners.statements.Fail;
+
 import static org.junit.Assert.* ;
 
 public class PremiumTests {
-    Premium a = new Premium(1, "Eoghan", "Bradley", 1000);
+    Premium a;
+
+    @Before
+    public void setup()
+    {
+        a = new Premium(1, "Eoghan", "Bradley", 1000);
+    }
 
     @Test
     public void testPremiumOverdraftAmount(){
@@ -109,8 +118,10 @@ public class PremiumTests {
     public void withdraw_SuccessTest(){
         try
         {
-            assertEquals("Balance: \t£990.0",a.withdraw(10));
-        }catch(Exception e){}
+            assertEquals("Balance: \t£990.0",a.withdraw(1000000));
+        }catch(Exception e){
+            fail();
+        }
     }
 
     @Test
