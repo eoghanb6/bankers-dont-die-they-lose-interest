@@ -1,53 +1,39 @@
 package Structures;
 import junit.framework.Assert;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.internal.runners.statements.Fail;
-
 import static org.junit.Assert.* ;
 
-public class PremiumTests {
-    Premium a;
-
-    @Before
-    public void setup()
-    {
-        a = new Premium(1, "Eoghan", "Bradley", 1000);
-    }
+public class StandardTests {
+    Standard a = new Standard(1, "Eoghan", "Bradley", 500);
 
     @Test
-    public void testPremiumOverdraftAmount(){
+    public void testStandardOverdraftAmount(){
 
-        assertEquals(3000,a.getOverdraft(),0.01) ;
+        assertEquals(500,a.getOverdraft(),0.01) ;
 
     }
     @Test
-    public void testPremiumTransactionFee(){
+    public void testStandardTransactionFee(){
 
         assertEquals(0,a.getTransactionCharge(),0.01) ;
 
     }
-       @Test
-    public void checkNameisSpelledCorrectly(){
 
-        assertEquals("Eoghan Bradley", a.getName()) ;
-    }
-     @Test
+    @Test
     public void checkAccountInfo(){
-         assertEquals("1 (Premium) - Eoghan Bradley - £1000.0", a.getAccountInfo()) ;
+        assertEquals("1 (Standard) - Eoghan Bradley - £500.0", a.getAccountInfo()) ;
 
-     }
+    }
     @Test
     public void checkSavings(){
-        assertEquals( "Balance: \t£" + 1000.0 ,a.getSavings());
+        assertEquals( "Balance: \t£" + 500.0 ,a.getSavings());
     }
-
     @Test
     public void checkDepositIsPositive(){
         try
         {
-            assertEquals(990, a.deposit(-10));
+            assertEquals(540, a.deposit(-10));
             fail();
         }catch(Exception e)
         {
@@ -60,7 +46,7 @@ public class PremiumTests {
     public void checkwithdrawisPositive(){
         try
         {
-            assertEquals(1010, a.withdraw(-10));
+            assertEquals(510, a.withdraw(-10));
             fail();
         } catch(Exception e )
         {
@@ -69,19 +55,19 @@ public class PremiumTests {
         }
 
 
-        }
-        @Test
-        public void WithdrawLessThanmax(){
+    }
+    @Test
+    public void WithdrawLessThanmax(){
         double maxWithdrawal = 10000;
-            try
-            {
-                assertEquals("Balance: \t£"+-1.0, a.withdraw(10001));
-                fail();
-            } catch(Exception e )
-            {
-                final String expectedMessage = "Max withdrawl £" + maxWithdrawal;
-                assertEquals(expectedMessage, e.getMessage()) ;
-            }
+        try
+        {
+            assertEquals("Balance: \t£"+-1.0, a.withdraw(10001));
+            fail();
+        } catch(Exception e )
+        {
+            final String expectedMessage = "Max withdrawl £" + maxWithdrawal;
+            assertEquals(expectedMessage, e.getMessage()) ;
+        }
 
 
     }
@@ -97,20 +83,20 @@ public class PremiumTests {
             fail();
         } catch(Exception e )
         {
-            assertEquals("Cannot withdraw £5000.0 , only £4000.0 available as there is a £0.0 transaction charge for Premium accounts. Balance: £1000.0", e.getMessage()) ;
+            assertEquals("Cannot withdraw £5000.0 , only £1000.0 available as there is a £0.0 transaction charge for Standard accounts. Balance: £500.0", e.getMessage()) ;
         }
     }
 
     @Test
     public void getSavingsDouble_SuccessTest(){
-        assertEquals(1000.0,a.getSavingsDouble(),0.1);
+        assertEquals(500.0,a.getSavingsDouble(),0.1);
     }
 
     @Test
     public void deposit_SuccessTest(){
         try
         {
-        assertEquals("Balance: \t£1010.0",a.deposit(10));
+            assertEquals("Balance: \t£510.0",a.deposit(10));
         }catch(Exception e){
             fail();
         }
@@ -120,7 +106,7 @@ public class PremiumTests {
     public void withdraw_SuccessTest(){
         try
         {
-            assertEquals("Balance: \t£990.0",a.withdraw(10));
+            assertEquals("Balance: \t£490.0",a.withdraw(10));
         }catch(Exception e){
             fail();
         }
@@ -133,25 +119,16 @@ public class PremiumTests {
 
     @Test
     public void getAccountType(){
-        assertEquals(AccountType.Premium,a.getAccountType());
+        assertEquals(AccountType.Standard,a.getAccountType());
     }
 
+
+
+
+
+
+
+
+
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
