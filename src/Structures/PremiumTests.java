@@ -118,7 +118,7 @@ public class PremiumTests {
     public void withdraw_SuccessTest(){
         try
         {
-            assertEquals("Balance: \t£990.0",a.withdraw(1000000));
+            assertEquals("Balance: \t£990.0",a.withdraw(10));
         }catch(Exception e){
             fail();
         }

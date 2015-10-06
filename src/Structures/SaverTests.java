@@ -81,14 +81,14 @@ public class SaverTests {
         double maxWithdrawal = 10000;
         String savings = a.getSavings();
         double sum = a.getSavingsDouble() + a.getOverdraft() - a.getTransactionCharge() ;
-        double x = 5000;
+
         try
         {
-            assertEquals(sum, a.withdraw(x));
+            assertEquals(0, a.withdraw(1000));
             fail();
         } catch(Exception e )
         {
-            assertEquals("Cannot withdraw £5000.0 , only £999.0 available as there is a £1.0 transaction charge for Saver accounts. Balance: £1000.0", e.getMessage()) ;
+            assertEquals("Cannot withdraw £1000.0 , only £999.0 available as there is a £1.0 transaction charge for Saver accounts. Balance: £1000.0", e.getMessage()) ;
         }
     }
 
