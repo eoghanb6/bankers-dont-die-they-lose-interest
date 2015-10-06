@@ -102,7 +102,9 @@ public class SaverTests {
         try
         {
             assertEquals("Balance: \t£1010.0",a.deposit(10));
-        }catch(Exception e){}
+        }catch(Exception e){
+            fail();
+        }
     }
 
     @Test
@@ -110,7 +112,9 @@ public class SaverTests {
         try
         {
             assertEquals("Balance: \t£989.0",a.withdraw(10));
-        }catch(Exception e){}
+        }catch(Exception e){
+            fail();
+        }
     }
 
     @Test

@@ -111,7 +111,9 @@ public class PremiumTests {
         try
         {
         assertEquals("Balance: \t£1010.0",a.deposit(10));
-        }catch(Exception e){}
+        }catch(Exception e){
+            fail();
+        }
     }
 
     @Test
