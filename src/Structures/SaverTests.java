@@ -4,31 +4,31 @@ import org.junit.Rule;
 import org.junit.Test;
 import static org.junit.Assert.* ;
 
-public class PremiumTests {
-    Premium a = new Premium(1, "Eoghan", "Bradley", 1000);
+public class SaverTests {
+    Saver a = new Saver(1, "Eoghan", "Bradley", 1000);
 
     @Test
     public void testPremiumOverdraftAmount(){
 
-        assertEquals(3000,a.getOverdraft(),0.01) ;
+        assertEquals(0,a.getOverdraft(),0.01) ;
 
     }
     @Test
     public void testPremiumTransactionFee(){
 
-        assertEquals(0,a.getTransactionCharge(),0.01) ;
+        assertEquals(1,a.getTransactionCharge(),0.01) ;
 
     }
-       @Test
+    @Test
     public void checkNameisSpelledCorrectly(){
 
         assertEquals("Eoghan Bradley", a.getName()) ;
     }
-     @Test
+    @Test
     public void checkAccountInfo(){
-         assertEquals("1 (Premium) - Eoghan Bradley - £1000.0", a.getAccountInfo()) ;
+        assertEquals("1 (Saver) - Eoghan Bradley - £1000.0", a.getAccountInfo()) ;
 
-     }
+    }
     @Test
     public void checkSavings(){
         assertEquals( "Balance: \t£" + 1000.0 ,a.getSavings());
@@ -60,19 +60,19 @@ public class PremiumTests {
         }
 
 
-        }
-        @Test
-        public void WithdrawLessThanmax(){
+    }
+    @Test
+    public void WithdrawLessThanmax(){
         double maxWithdrawal = 10000;
-            try
-            {
-                assertEquals("Balance: \t£"+-1.0, a.withdraw(10001));
-                fail();
-            } catch(Exception e )
-            {
-                final String expectedMessage = "Max withdrawl £" + maxWithdrawal;
-                assertEquals(expectedMessage, e.getMessage()) ;
-            }
+        try
+        {
+            assertEquals("Balance: \t£"+-1.0, a.withdraw(10001));
+            fail();
+        } catch(Exception e )
+        {
+            final String expectedMessage = "Max withdrawl £" + maxWithdrawal;
+            assertEquals(expectedMessage, e.getMessage()) ;
+        }
 
 
     }
@@ -88,7 +88,7 @@ public class PremiumTests {
             fail();
         } catch(Exception e )
         {
-            assertEquals("Cannot withdraw £5000.0 , only £4000.0 available as there is a £0.0 transaction charge for Premium accounts. Balance: £1000.0", e.getMessage()) ;
+            assertEquals("Cannot withdraw £5000.0 , only £999.0 available as there is a £1.0 transaction charge for Saver accounts. Balance: £1000.0", e.getMessage()) ;
         }
     }
 
@@ -101,7 +101,7 @@ public class PremiumTests {
     public void deposit_SuccessTest(){
         try
         {
-        assertEquals("Balance: \t£1010.0",a.deposit(10));
+            assertEquals("Balance: \t£1010.0",a.deposit(10));
         }catch(Exception e){}
     }
 
@@ -109,7 +109,7 @@ public class PremiumTests {
     public void withdraw_SuccessTest(){
         try
         {
-            assertEquals("Balance: \t£990.0",a.withdraw(10));
+            assertEquals("Balance: \t£989.0",a.withdraw(10));
         }catch(Exception e){}
     }
 
@@ -120,7 +120,7 @@ public class PremiumTests {
 
     @Test
     public void getAccountType(){
-        assertEquals(AccountType.Premium,a.getAccountType());
+        assertEquals(AccountType.Saver,a.getAccountType());
     }
 
 }
