@@ -92,10 +92,38 @@ public class PremiumTests {
         }
     }
 
+    @Test
+    public void getSavingsDouble_SuccessTest(){
+        assertEquals(1000.0,a.getSavingsDouble(),0.1);
+    }
 
+    @Test
+    public void deposit_SuccessTest(){
+        try
+        {
+        assertEquals("Balance: \t£1010.0",a.deposit(10));
+        }catch(Exception e){}
+    }
+
+    @Test
+    public void withdraw_SuccessTest(){
+        try
+        {
+            assertEquals("Balance: \t£990.0",a.withdraw(10));
+        }catch(Exception e){}
+    }
+
+    @Test
+    public void getAccountNumberTest(){
+        assertEquals(1,a.getaccountnumber());
+    }
+
+    @Test
+    public void getAccountType(){
+        assertEquals(AccountType.Premium,a.getAccountType());
+    }
 
 }
-
 
 
 
