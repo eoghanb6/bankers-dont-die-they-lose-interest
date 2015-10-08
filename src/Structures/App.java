@@ -6,23 +6,11 @@ import java.util.Scanner;
 public class App
 {
     public static void main(String[] args) {
-        try {
-            // The newInstance() call is a work around for some
-            // broken Java implementations
 
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
-        } catch (Exception ex) {
-
-            // handle the error
-            System.out.println(ex);
-        }
-
-        Connection conn = null;
-
-
+        Database db = new Database();
         while(true)
         {
-            System.out.println("Press 1: Add Account \nPress 2: List Accounts");
+            System.out.println("Press 1: Add Account \nPress 2: List Accounts \nPress 3: Log in to Withdraw or Deposit");
             Scanner scan = new Scanner(System.in);
             int menuChoice = 0;
             try
@@ -100,122 +88,17 @@ public class App
                         }
                     }while(!initialSavingsIsValid);
 
-                    try
-                    {
-                        String url = "jdbc:mysql://localhost/new";
-                        String user = "root";
-                        String password = "ch@ngeme1";
-
-                        conn = DriverManager.getConnection(url, user, password);
-
-                        Statement st = conn.createStatement();
-                        String AccountInsertQuery = " insert into account (first_name, last_name, type_id, balance)"
-                                + " values (?, ?, ?, ?)";
-                        PreparedStatement preparedAccountStmt = conn.prepareStatement(AccountInsertQuery);
-                        preparedAccountStmt.setString (1, firstName);
-                        preparedAccountStmt.setString (2, lastName);
-                        if(accountType == AccountType.Standard){preparedAccountStmt.setInt (3, 1);}
-                        else if(accountType == AccountType.Saver){preparedAccountStmt.setInt (3, 2);}
-                        else if(accountType == AccountType.Premium){preparedAccountStmt.setInt (3, 3);}
-                        preparedAccountStmt.setDouble (4, savings);
-                        preparedAccountStmt.execute();;
-
-                        st.close();
-                        conn.close();
-                    }
-                    catch(SQLException e) {
-                        System.out.println(e);
-                    }
+                    db.addAccount(firstName,lastName,accountType,savings);
 
                     break;
                 case 2:
-
-                    try
-                    {
-                        String url = "jdbc:mysql://localhost/new";
-                        String user = "root";
-                        String password = "ch@ngeme1";
-
-                        conn = DriverManager.getConnection(url, user, password);
-
-                        Statement st = conn.createStatement();
-                        ResultSet rs = st.executeQuery("select * from  account");
-
-                        while(rs.next()) {
-                            String out = String.format("Account Number: " + rs.getString("account_number") +  "\tName: " + rs.getString("first_name") + " " + rs.getString("last_name") + "\tAccount Type ID: " +  rs.getString("type_id") + "\tBalance: " + rs.getString("balance"));
-                            System.out.println(out);
-                        }
-
-                        st.close();
-                        conn.close();
-                    }
-                    catch(SQLException e) {
-                        System.out.println(e);
-                    }
+                    db.listAccounts();
                     break;
                 case 3:
-                    System.out.println("Enter Account ID");
-                    Boolean accountIdIsVerified = false;
-                    int accountId;
-                    double balance = 0;
-                    do
-                    {
-                        try
-                        {
-                            accountId = scan.nextInt();
-                            scan.nextLine();
-                            try
-                            {
-                                String url = "jdbc:mysql://localhost/new";
-                                String user = "root";
-                                String password = "ch@ngeme1";
 
-                                conn = DriverManager.getConnection(url, user, password);
-
-                                Statement st = conn.createStatement();
-                                ResultSet rs = st.executeQuery("select * from  account where account_id =" + accountId);
-
-                                while(rs.next()) {
-                                    String out = String.format("Account Number: " + rs.getString("account_number") +  "\tName: " + rs.getString("first_name") + " " + rs.getString("last_name") + "\tAccount Type ID: " +  rs.getString("type_id") + "\tBalance: " + rs.getString("balance"));
-                                    balance = rs.getDouble("balance");
-                                    System.out.println(out);
-                                }
-
-                                st.close();
-                                conn.close();
-                                accountIdIsVerified = true;
-                            }
-                            catch(SQLException e) {
-                                System.out.println(e);
-                                accountIdIsVerified = false;
-                            }
-
-                        }catch(Exception e){}
-
-                    }while(!accountIdIsVerified);
-                    Boolean choice = false;
-                    int choose = 0;
-                    do
-                    {
-                        System.out.println("Press 1: To Withdraw \n Press 2: To Deposit");
-                        try
-                        {
-                            choose = scan.nextInt();
-                            scan.nextLine();
-                        }catch(Exception e){}
-                        if(choose == 1 || choose == 2){choice = true;}
-                    }while(!choice);
-                    int savingsChange;
-                    switch(choose)
-                    {
-                        case 1:
-                            System.out.println("How much would you like to withdraw?");
+                    db.withdrawDeposit();
 
                             break;
-                        case 2:
-                            System.out.println("How much would you like to deposit?");
-                            break;
-                    }
 
             }
         }
