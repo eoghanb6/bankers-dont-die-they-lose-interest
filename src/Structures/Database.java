@@ -75,10 +75,10 @@ public class Database {
         {
             this.setConn();
             Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("select * from  account");
+            ResultSet rs = st.executeQuery("select * from  beatifulview1");
 
             while(rs.next()) {
-                String out = String.format("Account Number: " + rs.getString("account_number") +  "\tName: " + rs.getString("first_name") + " " + rs.getString("last_name") + "\tAccount Type ID: " +  rs.getString("type_id") + "\tBalance: " + rs.getString("balance"));
+                String out = String.format("Account Number: " + rs.getString("account_number") +  "\tName: " + rs.getString("first_name") + " " + rs.getString("last_name") + "\tAccount Type: " +  rs.getString("account_type") + "\tBalance: " + rs.getString("balance"));
                 System.out.println(out);
             }
 
@@ -94,6 +94,8 @@ public class Database {
         Scanner scan = new Scanner(System.in);
         Boolean accountIdIsVerified = false;
         double balance = 0;
+        double transactionFee = 0;
+        double overdraft = 0;
         int accountId = 0;
         do
         {
@@ -107,11 +109,13 @@ public class Database {
             {
                 this.setConn();
                 Statement st = conn.createStatement();
-                ResultSet rs = st.executeQuery("select * from  account where account_number =" + accountId);
+                ResultSet rs = st.executeQuery("select * from  beatifulview2 where account_number =" + accountId);
 
                 while(rs.next()) {
-                    String out = String.format("Account Number: " + rs.getString("account_number") +  "\tName: " + rs.getString("first_name") + " " + rs.getString("last_name") + "\tAccount Type ID: " +  rs.getString("type_id") + "\tBalance: " + rs.getString("balance"));
+                    String out = String.format("Account Number: " + rs.getString("account_number") +  "\tName: " + rs.getString("first_name") + " " + rs.getString("last_name") + "\tAccount Type: " +  rs.getString("account_type") + "\tBalance: " + rs.getString("balance") + "\tOverdraft : " + rs.getString("overdraft") + "\tTransaction Fee : " + rs.getString("transaction_fee"));
                     balance = rs.getDouble("balance");
+                    transactionFee = rs.getDouble("transaction_fee");
+                    overdraft = rs.getDouble("overdraft");
                     System.out.println(out);
                 }
 
@@ -151,11 +155,11 @@ public class Database {
                             System.out.println("How much would you like to withdraw?");
                             trans = scan.nextDouble();
                             scan.nextLine();
-                            if(trans>0 || trans<=balance){inputver = true;}
+                            if(trans>0 || trans<=balance + overdraft){inputver = true;}
                             //TODO transaction fee and overdraft
                         }catch(Exception e){}
                     }while(!inputver);
-                    balance -= trans;
+                    balance -= trans + transactionFee;
                     this.transcation(accountId, balance);
                     transVer = true;
                 }while (!transVer);
