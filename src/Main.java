@@ -112,12 +112,16 @@ public class Main {
                 System.out.println(accountList.get(accountList.size() - 1).getAccountInfo());
                 break;
             case 2:
+                /*
                 for(Account account: accountList){
                     System.out.println(account.getAccountInfo());
                 }
                 System.out.println("Press any key to go back to the menu");
                 String pass = myScanner.nextLine();
                 myScanner.nextLine();
+                */
+
+
                 break;
             case 3:
                 Boolean accountNumberIsValid = false;
